@@ -176,46 +176,6 @@
             <li>31 Plain</li>
         </ul>
 
-        <script>
-            
-            // Add event listener to the button
-            document.getElementById("order").addEventListener("click", function(event) {
-                event.preventDefault(); // Prevent form submission
-                wipe();
-            });
-
-            //function to select the month through the dropdown
-            function selectMonth(month) {
-                document.getElementById('selectedMonth').textContent = month;
-                document.querySelector('.dropdown-content').style.display = 'none';  // Close the dropdown
-            }
-
-            // Function to place orders
-            function wipe() {
-                let notesText = document.getElementById("note").value.toLowerCase(); // Get text and convert to lowercase
-
-                // Check if the word "vegan" is in the text box
-                if (notesText.includes("vegan")) {
-                    document.getElementById("note").value = "";
-                    alert("Cheesecake is not Vegan"); // Show pop-up
-                }else{
-                    console.log("Button clicked!"); // Debugging log
-                    // Remove the button
-                    document.getElementById("order").remove();
-            
-                    // Remove the textarea
-                    document.getElementById("note").remove();
-
-                    // Remove the radio buttons and labels
-                    document.getElementById("table").remove();
-                    //remove the label for the text area
-                    document.getElementById("label").remove();
-
-                    //gives thank you message once everything gets deleted
-                    document.getElementById("message").innerHTML = "Thank you! Your order has been placed!";
-
-                }
-            }
-        </script>
+        <script src="javascripts/scripts.js"></script>
     </body>
 </html>
