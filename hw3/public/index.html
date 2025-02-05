@@ -1,0 +1,221 @@
+<!--Written by Troy Carpenter (heavily assisted by https://www.w3schools.com/css/default.asp)-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CS341_HW1_Carpenter</title>
+        <link rel="hw3/public/stylesheets" href="style.css">
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>
+                Cheesecake Order Form
+            </h1>
+        </header>
+
+        <!--Image-->
+        <img
+            src="https://littlerock.com.mt/wp-content/uploads/2014/10/cheesecake.jpg">
+
+        <br>
+
+        <h3 id="message">
+            Quantity Topping
+        </h3>
+
+        <br>
+
+
+        <style>
+        /* Make the dropdown and radio buttons display side by side */
+        .dropdown, .radio-buttons {
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 20px;
+        }
+        </style>
+
+        <table id="table">
+            <tr>
+                <td>
+                    <!--Dropdown menu-->
+                    <select name="subject" id="subject">
+                        <option value selected>1</option>
+                        <option value selected>2</option>
+                        <option value selected>3</option>
+                    </select>
+                </td>
+                <td>
+                    <!--Radio Buttons-->
+                    <div>
+                        <input type="radio" id="Plain" name="flavor"
+                            value="Plain">
+                        <label for="Plain">Plain</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="Cherry" name="flavor"
+                            value="Cherry">
+                        <label for="Cherry">Cherry</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="Chocolate" name="flavor"
+                            value="Chocolate" checked>
+                        <label for="Chocolate">Chocolate</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!--Textbox-->
+        <p><label id="label" for="notes">Notes:</label></p>
+        <textarea id="note" name="notes" rows="4" cols="50"
+            placeholder="Enter any special instructions here"></textarea>
+
+        <br>
+
+        <!--Button-->
+        <style>
+        .button {
+            border: none;
+            color: white;
+            padding: 12px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button1 {
+            background-color: #9292a8;
+            border-radius: 8px;
+        }
+        </style>
+
+        <button id="order" class="button button1">Order</button>
+
+        
+        <!--customization of the dropdown menu-->
+        <style>
+            .dropbtn {
+                background-color: #b7c8d4;
+                color: white;
+                padding: 16px;
+                font-size: 16px;
+                border: none;
+                cursor: pointer;
+            }
+            
+            .dropdown {
+                position: relative;
+                display: inline-block;
+                
+            }
+            
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                right: 0;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+                max-height:200px;
+                overflow:scroll; 
+            }
+            
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+            
+            .dropdown-content a:hover {background-color: #f1f1f1;}
+            .dropdown:hover .dropdown-content {display: block;}
+            .dropdown:hover .dropbtn {background-color: #3e8e41;}
+        </style>
+
+        <table>
+            <tr>
+                <td>
+                    <h2>
+                        Total Orders
+                    </h2>
+                </td>
+                <!--Dropdown for the months-->
+                <td>
+                    <div class="dropdown" style="float:left;">
+                        <button class="dropbtn" id="selectedMonth">Jan</button>
+                        <div class="dropdown-content" style="left:0;">
+                            <a href="#" onclick="selectMonth('Feb')">Feb</a>
+                            <a href="#" onclick="selectMonth('Mar')">Mar</a>
+                            <a href="#" onclick="selectMonth('Apr')">Apr</a>
+                            <a href="#" onclick="selectMonth('May')">May</a>
+                            <a href="#" onclick="selectMonth('Jun')">Jun</a>
+                            <a href="#" onclick="selectMonth('Jul')">Jul</a>
+                            <a href="#" onclick="selectMonth('Aug')">Aug</a>
+                            <a href="#" onclick="selectMonth('Sep')">Sep</a>
+                            <a href="#" onclick="selectMonth('Oct')">Oct</a>
+                            <a href="#" onclick="selectMonth('Nov')">Nov</a>
+                            <a href="#" onclick="selectMonth('Dec')">Dec</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!--Unordered list-->
+        <ul>
+            <li>11 Cherry</li>
+            <li>17 Chocolate</li>
+            <li>31 Plain</li>
+        </ul>
+
+        <script>
+            
+            // Add event listener to the button
+            document.getElementById("order").addEventListener("click", function(event) {
+                event.preventDefault(); // Prevent form submission
+                wipe();
+            });
+
+            //function to select the month through the dropdown
+            function selectMonth(month) {
+                document.getElementById('selectedMonth').textContent = month;
+                document.querySelector('.dropdown-content').style.display = 'none';  // Close the dropdown
+            }
+
+            // Function to place orders
+            function wipe() {
+                let notesText = document.getElementById("note").value.toLowerCase(); // Get text and convert to lowercase
+
+                // Check if the word "vegan" is in the text box
+                if (notesText.includes("vegan")) {
+                    document.getElementById("note").value = "";
+                    alert("Cheesecake is not Vegan"); // Show pop-up
+                }else{
+                    console.log("Button clicked!"); // Debugging log
+                    // Remove the button
+                    document.getElementById("order").remove();
+            
+                    // Remove the textarea
+                    document.getElementById("note").remove();
+
+                    // Remove the radio buttons and labels
+                    document.getElementById("table").remove();
+                    //remove the label for the text area
+                    document.getElementById("label").remove();
+
+                    //gives thank you message once everything gets deleted
+                    document.getElementById("message").innerHTML = "Thank you! Your order has been placed!";
+
+                }
+            }
+        </script>
+    </body>
+</html>
