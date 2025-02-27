@@ -84,7 +84,7 @@ textarea {
 }
 
 /* List styling */
-ul {
+#table1 {
     list-style-type: square;
     margin: 20px auto;
     padding: 0;

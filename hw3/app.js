@@ -1,3 +1,4 @@
+//Troy Carpenter
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -19,6 +20,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//HW4
+const orders = require('./routes/orders');
+app.use('/orders', orders);
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
@@ -39,3 +44,5 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+
