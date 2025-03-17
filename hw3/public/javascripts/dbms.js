@@ -14,9 +14,9 @@ var mysql = require('mysql'),
     async = require('async');
 
 var host = "10.6.2.7";    //pdx0mysql00 IP address
-var database = "carpentt27_db";  //database name
-var user = "carpentt27";         //username (change to match your db)
-var password = "carpentt27";  //password (change to match your db, yes THIS IS VERY POOR PRACTICE)
+var database = "cs341-03";  //database name
+var user = "cs341-03";         //username (change to match your db)
+var password = "zbShkoTYTUatXgA7";  //password (change to match your db, yes THIS IS VERY POOR PRACTICE)
 
 /**
  * dbquery

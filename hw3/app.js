@@ -28,7 +28,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 //HW5
-const newOrder = require('./javascriipts/newOrder');
+const newOrder = require('./routes/newOrder');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -46,24 +46,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// Define a POST endpoint to handle new orders
-app.post('/newOrder', (req, res) => {
-    
-  // Extract the order details from the request body
-  const { toppingId, quantity, notes, month, year } = req.body;
 
-  // Call the function to insert the order into the database
-  newOrder.addNewOrder(toppingId, quantity, notes, month, year, (err, results) => {
-      
-      if (err) {
-          // If an error occurs, send a 500 Internal Server Error response
-          res.status(500).json({ error: 'Error adding order' });
-      } else {
-          // If successful, respond with a success message and the new order ID
-          res.json({ message: 'Order added successfully', orderId: results.insertId });
-      }
-  });
-});
 module.exports = app;
 
 
