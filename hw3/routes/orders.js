@@ -4,6 +4,9 @@ const express = require('express');
 //makes a mini app to "route" things here rather than through app.js
 const router = express.Router();
 
+const getOrders = require('../public/javascripts/getOrders');
+
+/*
 //array of orders by month
 const orders = {
     Jan: [
@@ -68,22 +71,26 @@ const orders = {
     ]
 };
 
+
 //display all the orders stored in the array
 router.get('/', (req, res) => {
     res.json(orders);
 });
+*/
 
 //listens to a POST request from the /orders route
 router.post('/', (req, res) => {
     //client data from selecting month
-    const month = req.body.month;
+    const { month, year } = req.body;
 
     //checks if there is data that month
-    if (orders[month]) {
-        res.json(orders[month]);
-    } else {
-        res.status(404).json({ error: 'No orders found for this month' });
-    }
+    getOrders.getOrdersForMonth(month, year, (err, results) => {
+        if (err) {
+            res.status(500).json({ error: 'Error retrieving orders' });
+        } else {
+            res.json(results);
+        }
+    });
 });
 
 //the "handle" for app.js to use this orders "tool"
