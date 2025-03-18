@@ -1,17 +1,25 @@
 //Troy Carpenter
 
-const db = require('../public/javascripts/dbms.js');
+const express = require('express');
+const router = express.Router();
+const db = require('../public/javascripts/dbms'); // DB connection file
 
-exports.addNewOrder = function(toppingId, quantity, notes, month, year, callback) {
+// Handle POST request to insert a new order
+router.post('/', (req, res) => {
+    const { toppingId, quantity, notes, month, year } = req.body;
+
     const query = `INSERT INTO orders (T_ID, quantity, notes, month, year)
                    VALUES (${toppingId}, ${quantity}, '${notes}', ${month}, ${year})`;
-    console.error('${query}');
+
     db.dbquery(query, (err, results) => {
         if (err) {
             console.error('Error inserting order:', err);
-            callback(err, null);
+            res.status(500).json({ error: 'Error adding order' });
         } else {
-            callback(null, results);
+            res.json({ message: 'Order added successfully', orderId: results.insertId });
         }
     });
-};
+});
+
+module.exports = router; // Ensure we export router, not an object!
+

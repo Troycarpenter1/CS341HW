@@ -28,7 +28,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 //HW5
-const newOrder = require('./routes/newOrder');
+const newOrderRouter = require('./routes/newOrder');
+app.use('/newOrder', newOrderRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
