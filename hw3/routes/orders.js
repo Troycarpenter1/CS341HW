@@ -4,7 +4,6 @@ const express = require('express');
 //makes a mini app to "route" things here rather than through app.js
 const router = express.Router();
 
-const getOrders = require('../public/javascripts/getOrders');
 
 /*
 //array of orders by month
@@ -78,19 +77,40 @@ router.get('/', (req, res) => {
 });
 */
 
+var dbms = require("../public/javascripts/dbms");
+
+
 //listens to a POST request from the /orders route
 router.post('/', (req, res) => {
-    //client data from selecting month
-    const { month, year } = req.body;
+    let month = req.body.month.toLowerCase();
 
-    //checks if there is data that month
-    getOrders.getOrdersForMonth(month, year, (err, results) => {
-        if (err) {
-            res.status(500).json({ error: 'Error retrieving orders' });
-        } else {
-            res.json(results);
+    console.log(month);
+
+    const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+    const monthNumber = months.indexOf(month) + 1;
+
+    dbms.dbquery(
+        `SELECT * FROM orders WHERE month = ${monthNumber}`,
+        (err, results) => {
+            if (err) {
+                res.status(500);
+            } else {
+                res.json(results);
+            }
         }
-    });
+    );
+
+    //     //client data from selecting month
+    //     const { month, year } = req.body;
+
+    //     //checks if there is data that month
+    //     getOrders.getOrdersForMonth(month, year, (err, results) => {
+    //         if (err) {
+    //             res.status(500).json({ error: 'Error retrieving orders' });
+    //         } else {
+    //             res.json(results);
+    //         }
+    //     });
 });
 
 //the "handle" for app.js to use this orders "tool"

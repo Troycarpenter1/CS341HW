@@ -1,25 +1,113 @@
 //Troy Carpenter
-
+//use express framework
 const express = require('express');
+//makes a mini app to "route" things here rather than through app.js
 const router = express.Router();
-const db = require('../public/javascripts/dbms'); // DB connection file
 
-// Handle POST request to insert a new order
+
+/*
+//array of orders by month
+const orders = {
+    Jan: [
+        { topping: 'Cherry', quantity: 1 },
+        { topping: 'Plain', quantity: 25 },
+        { topping: 'Chocolate', quantity: 2 }
+    ],
+    Feb: [
+        { topping: 'Plain', quantity: 3 },
+        { topping: 'Chocolate', quantity: 26 },
+        { topping: 'Cherry', quantity: 4 }
+    ],
+    Mar: [
+        { topping: 'Cherry', quantity: 5 },
+        { topping: 'Plain', quantity: 27 },
+        { topping: 'Chocolate', quantity: 6 }
+    ],
+    Apr: [
+        { topping: 'Plain', quantity: 7 },
+        { topping: 'Chocolate', quantity: 28 },
+        { topping: 'Cherry', quantity: 8 }
+    ],
+    May: [
+        { topping: 'Cherry', quantity: 9 },
+        { topping: 'Plain', quantity: 29 },
+        { topping: 'Chocolate', quantity: 10 }
+    ],
+    Jun: [
+        { topping: 'Plain', quantity: 11 },
+        { topping: 'Chocolate', quantity: 30 },
+        { topping: 'Cherry', quantity: 12 }
+    ],
+    Jul: [
+        { topping: 'Cherry', quantity: 13 },
+        { topping: 'Plain', quantity: 31 },
+        { topping: 'Chocolate', quantity: 14 }
+    ],
+    Aug: [
+        { topping: 'Plain', quantity: 15 },
+        { topping: 'Chocolate', quantity: 32 },
+        { topping: 'Cherry', quantity: 16 }
+    ],
+    Sep: [
+        { topping: 'Cherry', quantity: 17 },
+        { topping: 'Plain', quantity: 33 },
+        { topping: 'Chocolate', quantity: 18 }
+    ],
+    Oct: [
+        { topping: 'Plain', quantity: 19 },
+        { topping: 'Chocolate', quantity: 34 },
+        { topping: 'Cherry', quantity: 20 }
+    ],
+    Nov: [
+        { topping: 'Cherry', quantity: 21 },
+        { topping: 'Plain', quantity: 35 },
+        { topping: 'Chocolate', quantity: 22 }
+    ],
+    Dec: [
+        { topping: 'Plain', quantity: 23 },
+        { topping: 'Chocolate', quantity: 36 },
+        { topping: 'Cherry', quantity: 24 }
+    ]
+};
+
+
+//display all the orders stored in the array
+router.get('/', (req, res) => {
+    res.json(orders);
+});
+*/
+
+var dbms = require("../public/javascripts/dbms");
+
+
+//listens to a POST request from the /orders route
 router.post('/', (req, res) => {
     const { toppingId, quantity, notes, month, year } = req.body;
 
     const query = `INSERT INTO orders (T_ID, quantity, notes, month, year)
                    VALUES (${toppingId}, ${quantity}, '${notes}', ${month}, ${year})`;
 
-    db.dbquery(query, (err, results) => {
+    dbms.dbquery(query, (err, results) => {
         if (err) {
-            console.error('Error inserting order:', err);
-            res.status(500).json({ error: 'Error adding order' });
+            res.status(500);
         } else {
-            res.json({ message: 'Order added successfully', orderId: results.insertId });
+            res.json(results);
         }
-    });
+    }
+    );
+
+    //     //client data from selecting month
+    //     const { month, year } = req.body;
+
+    //     //checks if there is data that month
+    //     getOrders.getOrdersForMonth(month, year, (err, results) => {
+    //         if (err) {
+    //             res.status(500).json({ error: 'Error retrieving orders' });
+    //         } else {
+    //             res.json(results);
+    //         }
+    //     });
 });
 
-module.exports = router; // Ensure we export router, not an object!
-
+//the "handle" for app.js to use this orders "tool"
+module.exports = router;
