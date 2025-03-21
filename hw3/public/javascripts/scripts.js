@@ -29,6 +29,7 @@ $(function () {
         } else {
             console.log("Button clicked!"); // Debugging log
 
+            //sends all the data to the db
             $.post("http://localhost:3000/newOrder", {
                 toppingId: flavor,
                 quantity: gotQuantity,
@@ -36,25 +37,6 @@ $(function () {
                 month: 3,
                 year: 2023
             });
-
-            // // Define a POST endpoint to handle new orders
-            // $.post('/newOrder', (req, res) => {
-
-            //     // Extract the order details from the request body
-            //     const { toppingId, quantity, notes, month, year } = req.body;
-
-            //     // Call the function to insert the order into the database
-            //     newOrder.addNewOrder(toppingId, quantity, notes, month, year, (err, results) => {
-
-            //         if (err) {
-            //             // If an error occurs, send a 500 Internal Server Error response
-            //             res.status(500).json({ error: 'Error adding order' });
-            //         } else {
-            //             // If successful, respond with a success message and the new order ID
-            //             res.json({ message: 'Order added successfully', orderId: results.insertId });
-            //         }
-            //     });
-            // });
 
             // Remove elements
             $("#order, #note, #table, #label").remove();
